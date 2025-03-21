@@ -1,19 +1,23 @@
 import { Request, Response } from 'express';
 import { UserService } from '../services/user.service';
 
-const userService = new UserService();
+const userService = UserService.getInstance();
 
 class UserController {
-    async createUser(req: Request, res: Response): Promise<any> {
-        const { name, email, password } = req.body;
-    
-        try {
-          const user = await userService.createUser(name, email, password);
-          return res.status(201).json(user);
-        } catch (error) {
-          return res.status(500).json({ error: 'Failed to create user' });
-        }
+    private authService: UserService;
+
+    constructor() {
+        this.authService = UserService.getInstance();
+    }
+
+    public index = async (req: Request, res: Response) => {
+      try {
+        const result = await userService.indexServer();
+        res.status(200).json(result);
+      } catch(error) {
+        res.status(401);
       }
+    }
   }
 
 export default UserController;
