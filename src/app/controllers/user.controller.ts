@@ -18,6 +18,12 @@ class UserController {
         res.status(401);
       }
     }
+
+    public findUserEmail = async (req: Request, res: Response) => {
+      const { email } = req.body;
+      const result = await userService.findUserEmailServer(email);
+      res.json(result);
+    }
   }
 
 export default UserController;

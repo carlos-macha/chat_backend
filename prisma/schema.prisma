@@ -37,12 +37,12 @@ model Contact {
 }
 
 model Message {
-  id         String   @id @default(uuid())  
-  senderId   String
-  receiverId String
-  content    String
-  createdAt  DateTime @default(now())
+  id            String   @id @default(uuid())  
+  senderEmail   String
+  receiverEmail String
+  content       String
+  createdAt     DateTime @default(now())
 
-  sender   User @relation("MessageSender", fields: [senderId], references: [id])
-  receiver User @relation("MessageReceiver", fields: [receiverId], references: [id])
+  sender   User @relation("MessageSender", fields: [senderEmail], references: [email])
+  receiver User @relation("MessageReceiver", fields: [receiverEmail], references: [email])
 }

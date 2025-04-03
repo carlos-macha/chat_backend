@@ -19,4 +19,14 @@ export class UserService {
 
         return { users };
     }
+
+    async findUserEmailServer(email: string) {
+        try {
+            const user = await prisma.user.findUnique({ where: { email: email } });
+
+            return { user };
+        } catch (error) {
+            return {error: error};
+        }
+    }
 };
