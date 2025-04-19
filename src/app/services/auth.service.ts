@@ -9,7 +9,6 @@ const userSchema = z.object({
     password: z.string().min(6),
 });
 
-//Padrão Singleton
 export class authService {
     private static instance: authService;
 
@@ -34,12 +33,7 @@ export class authService {
             data: { email: parsedData.email, password: hashedPassword, name: name },
         });
 
-        //remover isso depois
-        const token = jwt.sign({ userId: user!.id }, process.env.JWT_SECRET as string, {
-            expiresIn: "1h",
-        });
-
-        return { message: "Usuário criado com sucesso", token: token };
+        return { message: "Usuário criado com sucesso"};
     }
 
     async loginUser(email: string, password: string, userId: number) {
